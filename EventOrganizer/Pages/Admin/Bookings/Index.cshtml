@@ -1,0 +1,98 @@
+﻿@page
+@model EventOrganizer.Pages.Admin.Bookings.IndexModel
+@{
+    ViewData["Title"] = "Event Registrations";
+}
+
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                    <!-- Header -->
+                    <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">Event Registrations</h2>
+                            <p class="text-sm text-gray-600">View all event registrations</p>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-start">
+                                    <div class="flex items-center gap-x-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                            Event
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-start">
+                                    <div class="flex items-center gap-x-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                            Attendee
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-start">
+                                    <div class="flex items-center gap-x-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                            Registration Date
+                                        </span>
+                                    </div>
+                                </th>
+                                @* <th scope="col" class="px-6 py-3 text-start"> *@
+                                @*     <div class="flex items-center gap-x-2"> *@
+                                @*         <span class="text-xs font-semibold uppercase tracking-wide text-gray-800"> *@
+                                @*             Status *@
+                                @*         </span> *@
+                                @*     </div> *@
+                                @* </th> *@
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach (var registration in Model.Registrations)
+                            {
+                                <tr>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            <span class="text-sm text-gray-600">@registration.Event.Title</span>
+                                        </div>
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            <span class="text-sm text-gray-600">@registration.User.Email</span>
+                                        </div>
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            <span class="text-sm text-gray-600">@registration.RegisteredDate.ToString("MMM dd, yyyy")</span>
+                                        </div>
+                                    </td>
+                                    @* <td class="h-px w-px whitespace-nowrap"> *@
+                                    @*     <div class="px-6 py-3"> *@
+                                    @*         @if (registration.) *@
+                                    @*         { *@
+                                    @*             <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800"> *@
+                                    @*                 Attended *@
+                                    @*             </span> *@
+                                    @*         } *@
+                                    @*         else *@
+                                    @*         { *@
+                                    @*             <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"> *@
+                                    @*                 Registered *@
+                                    @*             </span> *@
+                                    @*         } *@
+                                    @*     </div> *@
+                                    @* </td> *@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,181 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <!-- Total Events -->
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center gap-x-4">
+                <div class="flex-shrink-0 bg-blue-500 rounded-lg p-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="grow">
+                    <p class="text-xs uppercase tracking-wide text-gray-500">
+                        Total Events
+                    </p>
+                    <div class="mt-1 flex items-center gap-x-2">
+                        <h3 class="text-xl font-medium text-gray-800">
+                            @Model.Stats.TotalEvents
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Users -->
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center gap-x-4">
+                <div class="flex-shrink-0 bg-green-500 rounded-lg p-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </div>
+                <div class="grow">
+                    <p class="text-xs uppercase tracking-wide text-gray-500">
+                        Total Users
+                    </p>
+                    <div class="mt-1 flex items-center gap-x-2">
+                        <h3 class="text-xl font-medium text-gray-800">
+                            @Model.Stats.TotalUsers
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Categories -->
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center gap-x-4">
+                <div class="flex-shrink-0 bg-purple-500 rounded-lg p-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                </div>
+                <div class="grow">
+                    <p class="text-xs uppercase tracking-wide text-gray-500">
+                        Total Categories
+                    </p>
+                    <div class="mt-1 flex items-center gap-x-2">
+                        <h3 class="text-xl font-medium text-gray-800">
+                            @Model.Stats.TotalCategories
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Bookings -->
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center gap-x-4">
+                <div class="flex-shrink-0 bg-yellow-500 rounded-lg p-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <div class="grow">
+                    <p class="text-xs uppercase tracking-wide text-gray-500">
+                        Total Bookings
+                    </p>
+                    <div class="mt-1 flex items-center gap-x-2">
+                        <h3 class="text-xl font-medium text-gray-800">
+                            @Model.Stats.TotalBookings
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="/Admin/Events/Index" class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+            <div class="p-4 md:p-5">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="group-hover:text-blue-600 font-semibold text-gray-800">
+                            Manage Events
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Add, edit, or delete events
+                        </p>
+                    </div>
+                    <div class="ps-3">
+                        <svg class="w-3.5 h-3.5 text-gray-500" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        
+
+        <a href="/Admin/UsersMgmt/index" class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+            <div class="p-4 md:p-5">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="group-hover:text-blue-600 font-semibold text-gray-800">
+                            Manage Users
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            User account management
+                        </p>
+                    </div>
+                    <div class="ps-3">
+                        <svg class="w-3.5 h-3.5 text-gray-500" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </a>
+		<a href="/Admin/Categories" class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+			<div class="p-4 md:p-5">
+				<div class="flex justify-between items-center">
+					<div>
+						<h3 class="group-hover:text-blue-600 font-semibold text-gray-800">
+							Manage Categories
+						</h3>
+						<p class="text-sm text-gray-500">
+							Organize event categories
+						</p>
+					</div>
+					<div class="ps-3">
+						<svg class="w-3.5 h-3.5 text-gray-500" width="16" height="16" viewBox="0 0 16 16" fill="none">
+							<path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+						</svg>
+					</div>
+				</div>
+			</div>
+		</a>
+        <a href="/Admin/Bookings" class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+            <div class="p-4 md:p-5">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="group-hover:text-blue-600 font-semibold text-gray-800">
+                            View Bookings
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Monitor event registrations
+                        </p>
+                    </div>
+                    <div class="ps-3">
+                        <svg class="w-3.5 h-3.5 text-gray-500" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

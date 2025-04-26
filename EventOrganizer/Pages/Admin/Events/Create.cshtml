@@ -1,0 +1,76 @@
+﻿@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Create Event</h2>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-sm text-red-600"></div>
+
+                        <div class="grid gap-4 lg:gap-6">
+                            <div>
+                                <label asp-for="EventInput.Title" class="block text-sm font-medium mb-2 text-gray-800"></label>
+                                <input asp-for="EventInput.Title" class="py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" />
+                                <span asp-validation-for="EventInput.Title" class="text-sm text-red-600"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="EventInput.CategoryId" class="block text-sm font-medium mb-2 text-gray-800">Category</label>
+                                <select asp-for="EventInput.CategoryId" asp-items="Model.Categories" class="py-3 px-4 pe-9 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                    <option value="">-- Select Category --</option>
+                                </select>
+                                <span asp-validation-for="EventInput.CategoryId" class="text-sm text-red-600"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="EventInput.EventDate" class="block text-sm font-medium mb-2 text-gray-800"></label>
+                                <input asp-for="EventInput.EventDate" type="datetime-local" class="py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" />
+                                <span asp-validation-for="EventInput.EventDate" class="text-sm text-red-600"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="EventInput.Location" class="block text-sm font-medium mb-2 text-gray-800"></label>
+                                <input asp-for="EventInput.Location" class="py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" />
+                                <span asp-validation-for="EventInput.Location" class="text-sm text-red-600"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="EventInput.Description" class="block text-sm font-medium mb-2 text-gray-800"></label>
+                                <textarea asp-for="EventInput.Description" rows="5" class="py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"></textarea>
+                                <span asp-validation-for="EventInput.Description" class="text-sm text-red-600"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="EventInput.ImageFiles" class="block text-sm font-medium mb-2 text-gray-800">Event Images (First image = thumbnail)</label>
+                                <input asp-for="EventInput.ImageFiles" multiple accept="image/*" class="block w-full border border-gray-300 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:bg-gray-100 file:me-4 file:py-3 file:px-4" />
+                                <span asp-validation-for="EventInput.ImageFiles" class="text-sm text-red-600"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="EventInput.MaxAttendees" class="block text-sm font-medium mb-2 text-gray-800"></label>
+                                <input asp-for="EventInput.MaxAttendees" type="number" class="py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" />
+                                <span asp-validation-for="EventInput.MaxAttendees" class="text-sm text-red-600"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex gap-x-3">
+                            <button type="submit" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                Create Event
+                            </button>
+                            <a asp-page="./Index" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-300 text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                                Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

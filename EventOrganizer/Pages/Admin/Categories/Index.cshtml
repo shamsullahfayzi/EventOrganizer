@@ -1,0 +1,193 @@
+﻿@page
+@model EventOrganizer.Pages.Admin.Categories.IndexModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                    <!-- Header -->
+                    <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">Categories</h2>
+                            <p class="text-sm text-gray-600">Manage event categories</p>
+                        </div>
+
+                        <div>
+                            <button type="button" onclick="showCreateModal()"
+                                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                Create Category
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-start">
+                                    <div class="flex items-center gap-x-2">
+                                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">Name</span>
+                                    </div>
+                                </th>
+                                
+                                <th scope="col" class="px-6 py-3 text-end"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach (var category in Model.Categories)
+                            {
+                                <tr>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            <span class="text-sm text-gray-600">@category.Name</span>
+                                        </div>
+                                    </td>
+                                     <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-1.5">
+                                            <div class="flex items-center gap-x-2">
+                                                <button type="button" onclick="showEditModal(@category.Id, '@category.Name')"
+                                                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                                                    Edit
+                                                </button>
+                                                <button type="button" onclick="showDeleteModal(@category.Id)"
+                                                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-red-600 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showCreateModal() {
+            Swal.fire({
+                title: 'Create New Category',
+                html: `
+                    <form id="createForm" class="space-y-4">
+                        <div class="text-left">
+                            <label class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="categoryName" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                        </div>
+                      
+                    </form>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Create',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    confirmButton: 'swal2-confirm bg-blue-600 hover:bg-blue-700',
+                    cancelButton: 'swal2-cancel bg-gray-200 hover:bg-gray-300'
+                },
+                preConfirm: () => {
+                    const name = document.getElementById('categoryName').value;
+                    console.log(name);
+                    return fetch('?handler=Create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        },
+                        body: JSON.stringify({ name })
+                    }).then(response => {
+                        if (!response.ok) throw new Error(response.statusText);
+                        return response.json();
+                    });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+        }
+
+            function showEditModal(id, name) {
+                console.log(id,name);
+                Swal.fire({
+                    title: 'Edit Category',
+                    html: `
+                        <form id="editForm" class="space-y-4">
+                            <div class="text-left">
+                                <label class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" id="categoryName" value="${name}" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                            </div>
+                       
+                        </form>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save Changes',
+                    cancelButtonText: 'Cancel',
+                    customClass: {
+                        confirmButton: 'swal2-confirm bg-blue-600 hover:bg-blue-700',
+                        cancelButton: 'swal2-cancel bg-gray-200 hover:bg-gray-300'
+                    },
+                    preConfirm: () => {
+                        const name = document.getElementById('categoryName').value;
+                        return fetch('?handler=Edit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                            },
+                            body: JSON.stringify({ id, name, })
+                        }).then(response => {
+                            if (!response.ok) throw new Error(response.statusText);
+                            return response.json();
+                        });
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.reload();
+                    }
+                });
+            }
+
+                function showDeleteModal(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'This category will be permanently deleted.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    confirmButton: 'swal2-confirm bg-red-600 hover:bg-red-700',
+                    cancelButton: 'swal2-cancel bg-gray-200 hover:bg-gray-300'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('?handler=Delete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        },
+                        body: JSON.stringify({ id })
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            location.reload();
+                        } else {
+                            Swal.fire('Error', result.error || 'Failed to delete.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}
