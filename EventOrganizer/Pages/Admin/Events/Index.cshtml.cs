@@ -4,9 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using EventOrganizer.Models;
 using EventOrganizer.Models.Common;
 using EventOrganizer.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventOrganizer.Pages.Admin.Events
 {
+    [Authorize(Roles = "Admin")]
+
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;

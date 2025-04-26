@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Hosting;
 using System.ComponentModel.DataAnnotations;
 using EventOrganizer.Models.Common;
 using EventOrganizer.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventOrganizer.Pages.Admin
 {
+    [Authorize(Roles = "Admin")]
+
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;

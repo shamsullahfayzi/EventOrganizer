@@ -5,9 +5,12 @@ using EventOrganizer.Models;
 using EventOrganizer.Models.Common;
 using EventOrganizer.Models.Entities;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventOrganizer.Pages.Admin.Categories
 {
+    [Authorize(Roles = "Admin")]
+
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;

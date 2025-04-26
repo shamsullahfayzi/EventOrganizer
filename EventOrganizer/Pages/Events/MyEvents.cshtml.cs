@@ -4,9 +4,11 @@ using EventOrganizer.Models;
 using EventOrganizer.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using EventOrganizer.Models.Common;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventOrganizer.Pages.Events
 {
+    [Authorize(Roles = "User")]
     public class MyEventsModel : PageModel
     {
         private readonly ApplicationDbContext _context;

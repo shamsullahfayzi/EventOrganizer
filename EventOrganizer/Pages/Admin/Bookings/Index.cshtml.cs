@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using EventOrganizer.Models;
 using EventOrganizer.Models.Entities;
 using EventOrganizer.Models.Common;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventOrganizer.Pages.Admin.Bookings
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;

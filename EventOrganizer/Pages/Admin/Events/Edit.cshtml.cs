@@ -7,9 +7,12 @@ using System.ComponentModel.DataAnnotations;
 using EventOrganizer.Models.Common;
 using EventOrganizer.Models.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventOrganizer.Pages.Admin.Events
 {
+    [Authorize(Roles = "Admin")]
+
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
