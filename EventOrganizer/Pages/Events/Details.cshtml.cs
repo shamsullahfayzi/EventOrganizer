@@ -49,7 +49,6 @@ public class DetailsModel : PageModel
             IsAttending = await _context.UserEvents
                 .AnyAsync(ue => ue.EventId == id && ue.UserId == user.Id);
         }
-
         IsFull = Event.CurrentAttendees >= Event.MaxAttendees;
 
         return Page();
@@ -65,7 +64,6 @@ public class DetailsModel : PageModel
         var evt = await _context.Events
             .Include(e => e.Attendees)
             .FirstOrDefaultAsync(e => e.Id == id);
-
         if (evt == null)
         {
             return NotFound();
@@ -74,7 +72,7 @@ public class DetailsModel : PageModel
         if (evt.CurrentAttendees >= evt.MaxAttendees)
         {
             TempData["Error"] = "This event is already full.";
-            return RedirectToPage();
+            return RedirectToPage("/Events/Details", new { id = id });
         }
 
         var user = await _userManager.GetUserAsync(User);
@@ -84,13 +82,11 @@ public class DetailsModel : PageModel
             EventId = id,
             RegisteredDate = DateTime.UtcNow
         };
-
         await _context.UserEvents.AddAsync(userEvent);
         evt.CurrentAttendees++;
         await _context.SaveChangesAsync();
-
         TempData["Success"] = "You have successfully registered for this event!";
-        return RedirectToPage();
+        return RedirectToPage("/Events/Details", new { id = id });
     }
 
     public async Task<IActionResult> OnPostCancelAsync(int id)
@@ -99,7 +95,6 @@ public class DetailsModel : PageModel
         {
             return RedirectToPage("/Account/Login", new { area = "Identity" });
         }
-
         var user = await _userManager.GetUserAsync(User);
         var userEvent = await _context.UserEvents
             .FirstOrDefaultAsync(ue => ue.EventId == id && ue.UserId == user.Id);
@@ -115,6 +110,6 @@ public class DetailsModel : PageModel
         await _context.SaveChangesAsync();
 
         TempData["Success"] = "You have successfully cancelled your registration.";
-        return RedirectToPage();
+        return RedirectToPage("/Events/Details", new { id = id });
     }
 }

@@ -137,14 +137,14 @@ namespace EventOrganizer.Areas.Identity.Pages.Account
                     }
 
                     // Assign role to the user
-                    //if (!(await _userManager.GetUsersInRoleAsync("Admin")).Any())
-                    //{
+                    if (!(await _userManager.GetUsersInRoleAsync("Admin")).Any())
+                    {
                         await _userManager.AddToRoleAsync(user, "Admin");  // First user becomes Admin
-                    //}
-                    //else
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, "Visitor");  // Others become Visitors
-                    //}
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");  // Others become Visitors
+                    }
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
